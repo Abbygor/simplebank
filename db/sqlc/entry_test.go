@@ -11,9 +11,15 @@ import (
 )
 
 func getCurrentAccounts(t *testing.T) []int64 {
+	var lastAccount Account
+	for i := 0; i < 10; i++ {
+		lastAccount = createRandomAccount(t)
+	}
+
 	arg := ListAccountsParams{
+		Owner:  lastAccount.Owner,
 		Limit:  5,
-		Offset: 5,
+		Offset: 0,
 	}
 	accounts, _ := testQueries.ListAccounts(context.Background(), arg)
 
